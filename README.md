@@ -1,4 +1,4 @@
-# Smart Photo ALbum Web Application
+# Smart Photo Album Web Application
 
 ## Photo-Finder
 
