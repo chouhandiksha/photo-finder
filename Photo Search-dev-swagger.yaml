@@ -1,0 +1,109 @@
+---
+swagger: "2.0"
+info:
+  description: "NLP Smart Photo Album application, built during the Cloud and Big\
+    \ Data System Course at New York University by Manan Chawda (mrc9419) Diksha Chouhan\
+    \ (dc4454)."
+  version: "1.0.0"
+  title: "Photo Search"
+host: "k63lp2ur0c.execute-api.us-west-2.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /search-photos:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "search-labels"
+        in: "query"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "Response"
+        required: true
+        schema:
+          $ref: "#/definitions/Response"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+        "500":
+          description: "500 response"
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+        "500":
+          description: "500 response"
+  /upload/{photo-bucket}/{photo-key}:
+    put:
+      produces:
+      - "application/json"
+      parameters:
+      - name: "photo-bucket"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "photo-key"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "x-amz-meta-customLabels"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+        "401":
+          description: "401 response"
+        "500":
+          description: "500 response"
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "photo-bucket"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "photo-key"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Expose-Headers:
+              type: "string"
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+definitions:
+  Response:
+    type: "string"
