@@ -26,15 +26,15 @@ function search() {
   var apigClient = apigClientFactory.newClient({ apiKey: "7vycwThvmz5jNVVOdmV8M4pYKg9VDtqO6Fz2AGHA" });
 
   var params = {
-    "q": searchTerm
+    "search-labels": searchTerm
   };
   var body = {
-    "q": searchTerm
+    "search-labels": searchTerm
   };
 
   var additionalParams = {
     queryParams: {
-      q: searchTerm
+      "search-labels": searchTerm
     }
   };
   console.log(searchTerm);

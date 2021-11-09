@@ -40,7 +40,7 @@ apigClientFactory.newClient = function (config) {
         config.sessionToken = '';
     }
     if(config.region === undefined) {
-        config.region = 'us-east-1';
+        config.region = 'us-west-2';
     }
     //If defaultContentType is not defined then default to application/json
     if(config.defaultContentType === undefined) {
@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://slrgjv476e.execute-api.us-east-1.amazonaws.com/dev';
+    var invokeUrl = 'https://k63lp2ur0c.execute-api.us-west-2.amazonaws.com/dev';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -86,13 +86,13 @@ apigClientFactory.newClient = function (config) {
     apigClient.searchGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['q'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['search-labels'], ['body']);
         
         var searchGetRequest = {
             verb: 'get'.toUpperCase(),
-            path: pathComponent + uritemplate('/search').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/search-photos').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['q']),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['search-labels']),
             body: body
         };
         
@@ -108,7 +108,7 @@ apigClientFactory.newClient = function (config) {
         
         var searchOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/search').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/search-photos').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
