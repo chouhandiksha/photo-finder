@@ -42,16 +42,11 @@ def lambda_handler(event, context):
 
     endpoint = 'https://search-photos-gg4gdku7fjltpovyhngdpmqtj4.us-west-2.es.amazonaws.com'
     headers = {'Content-Type': 'application/json'}
-    prepq = []
 
-
-    # for lbl in labels:
-    #     prepq.append({"match": {"labels": lbl}})
 
     query = {"query": {"match": {"labels": keys}}}
     es_resultdata = es.search(index="object-key", body=query)
-    #r = requests.post(endpoint, headers=headers, data=json.dumps(query))
-    # print(es_resultdata)
+
 
     result_img = []
     for each in es_resultdata['hits']['hits']:
@@ -64,8 +59,6 @@ def lambda_handler(event, context):
         ExpiresIn=3600)
         result_img.append(url)
         print(each['_source']['labels'])
-    # print(result_img)
-
 
 
 
