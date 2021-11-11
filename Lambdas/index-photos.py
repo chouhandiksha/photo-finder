@@ -5,7 +5,6 @@ from elasticsearch import Elasticsearch, RequestsHttpConnection
 from datetime import datetime
 
 
-
 def lambda_handler(event, context):
     # TODO implement
 
