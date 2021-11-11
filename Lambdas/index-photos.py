@@ -8,7 +8,7 @@ from datetime import datetime
 
 def lambda_handler(event, context):
     # TODO implement
-  
+
     print('This has been triggered',event)
     s3 = boto3.resource('s3', region_name='us-west-2')#Replace with your region name
     labels = []
@@ -31,15 +31,16 @@ def lambda_handler(event, context):
         print(record['s3']['object'])
     client2 = boto3.client('rekognition',region_name = 'us-west-2')
     
-    
+    custL=[]
     response2 = client2.detect_labels(Image = {"S3Object":{"Bucket": "photo-bucket-b2", "Name":file_name}}, MaxLabels = 10,MinConfidence= 50)
     response1 = client1.head_object(
     Bucket='photo-bucket-b2',
     Key=file_name)
-    print("labels are",response1['Metadata']['customlabels'])
-    
-    
-    
+    if(response1['Metadata']):
+        print("labels are",response1['Metadata']['customlabels'])
+        custL = response1['Metadata']['customlabels']
+    if custL:
+        customLabelsHead = response1['Metadata']['customlabels'].split(',')
     
     #Append detected Labels into a list
     for res in response2['Labels']:
@@ -49,16 +50,17 @@ def lambda_handler(event, context):
     if customLabelsHead:
         labels.extend(customLabelsHead)
         
-        
-    
-    
+    for label in labels:
+        print(label)
     
     
     host = "search-photos-gg4gdku7fjltpovyhngdpmqtj4.us-west-2.es.amazonaws.com"
     region = "us-west-2"
     service = "es"
     credentials = boto3.Session().get_credentials()
+    
     awsauth = AWS4Auth("", "", region, service)
+    
     es = Elasticsearch(
         hosts=[{'host': host, 'port': 443}],
         http_auth=awsauth,
