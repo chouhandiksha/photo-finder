@@ -6,7 +6,6 @@ from datetime import datetime
 
 
 def lambda_handler(event, context):
-    # TODO implement
 
     print('This has been triggered',event)
     s3 = boto3.resource('s3', region_name='us-west-2')#Replace with your region name
