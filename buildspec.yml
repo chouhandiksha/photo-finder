@@ -13,6 +13,7 @@ phases:
       - zip -r9 ../deployment_package_1.zip .
       - zip -r9 ../deployment_package_2.zip .
       - cd ..
+      - cd Lambdas
       - mv find-photo.py lambda_function.py
       - zip -g deployment_package_1.zip lambda_function.py
       - mv lambda_function.py find-photo.py
