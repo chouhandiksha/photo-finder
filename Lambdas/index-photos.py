@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     
     client1 = boto3.client('s3',region_name = 'us-west-2')
     
-    #Request for head object
+    #Requesting for head object
     
     
     
