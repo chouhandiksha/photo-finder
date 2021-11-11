@@ -20,7 +20,6 @@ def lambda_handler(event, context):
     
     
     
-    
     customLabelsHead= []
     
     #Loops through every file uploaded
