@@ -61,19 +61,14 @@ function showImages(searchTerm, res) {
 
      }
 
-        // res.forEach( function(obj) {
+        
           for (var i = 0; i < res.results.length; i++) {
               var elem = document.createElement("img");
               elem.setAttribute("src", res.results[i]);
-          // console.log(res[i]);
-            // var img = new Image();
-            // img.src = obj;
-            // img.setAttribute("class", "banner-img");
-            // img.setAttribute("alt", "effy");
+          
 
             document.getElementById("images").appendChild(elem)
-            // document.getElementById("img-container").appendChild(img);
-            // document.getElementById("images").style.display = "block";
+          
 
           };
             document.getElementById("images").innerHTML+='</div>'
