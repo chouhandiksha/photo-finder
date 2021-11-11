@@ -9,7 +9,6 @@ def lambda_handler(event, context):
     # TODO implement
     labels = event['queryStringParameters']['search-labels']
     print(labels)
-    
     lex = boto3.client('lex-runtime')
     response_lex = lex.post_text(
     botName='photo_finder',
