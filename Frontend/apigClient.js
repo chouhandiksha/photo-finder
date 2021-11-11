@@ -70,7 +70,7 @@ apigClientFactory.newClient = function (config) {
 
     var authType = 'NONE';
     if (sigV4ClientConfig.accessKey !== undefined && sigV4ClientConfig.accessKey !== '' && sigV4ClientConfig.secretKey !== undefined && sigV4ClientConfig.secretKey !== '') {
-        authType = 'AWS_IAM';
+        // authType = 'AWS_IAM';
     }
 
     var simpleHttpClientConfig = {
@@ -91,7 +91,7 @@ apigClientFactory.newClient = function (config) {
         var searchGetRequest = {
             verb: 'get'.toUpperCase(),
             path: pathComponent + uritemplate('/search-photos').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            headers: apiGateway.core.utils.parseParametersToObject(params, ['Access-Control-Allow-Origin','Access-Control-Allow-Methods','Access-Control-Allow-Headers']),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, ['search-labels']),
             body: body
         };
@@ -122,12 +122,12 @@ apigClientFactory.newClient = function (config) {
     apigClient.uploadPut = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, ['Content-Type', 'photo', 'x-amz-meta-customLabels'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['photo-bucket', 'photo-key', 'x-amz-meta-customLabels'], ['body']);
         
         var uploadPutRequest = {
             verb: 'put'.toUpperCase(),
-            path: pathComponent + uritemplate('/upload').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: apiGateway.core.utils.parseParametersToObject(params, ['Content-Type', 'photo', 'x-amz-meta-customLabels']),
+            path: pathComponent + uritemplate('/upload/{photo-bucket}/{photo-key}').expand(apiGateway.core.utils.parseParametersToObject(params, ['photo-bucket', 'photo-key'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, ['x-amz-meta-customLabels']),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
@@ -144,7 +144,7 @@ apigClientFactory.newClient = function (config) {
         
         var uploadOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/upload').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/upload/{photo-bucket}/{photo-key}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
