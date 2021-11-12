@@ -8,6 +8,7 @@ from botocore.vendored import requests
 def lambda_handler(event, context):
     labels = event['queryStringParameters']['search-labels']
     print(labels)
+    #connecting to lex
     lex = boto3.client('lex-runtime')
     response_lex = lex.post_text(
     botName='photo_finder',
